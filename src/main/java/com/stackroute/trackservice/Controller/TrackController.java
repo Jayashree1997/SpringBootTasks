@@ -27,16 +27,10 @@ public class TrackController {
   }
 
   @PostMapping("track")
-  public ResponseEntity<?> saveTrack(@RequestBody Track track){
-      ResponseEntity responseEntity;
-      try {
-          trackService.saveTrack(track);
-          responseEntity = new ResponseEntity<String>("Successfully created", HttpStatus.CREATED);
-      }catch(TrackAlreadyExistsException ex){
-          responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+      public ResponseEntity<?> saveUser(@RequestBody Track track) throws TrackAlreadyExistsException {
+          Track savedTrack = trackService.saveTrack(track);
+          return new ResponseEntity<>(savedTrack, HttpStatus.OK);
       }
-    return responseEntity;
-  }
 
   @GetMapping("track/{id}")
   public ResponseEntity<?> getTrackById(@PathVariable int id){
