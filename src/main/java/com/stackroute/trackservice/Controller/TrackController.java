@@ -39,15 +39,10 @@ public class TrackController {
   }
 
   @GetMapping("track/{id}")
-  public ResponseEntity<?> getTrackById(@PathVariable int id) {
-    System.out.println(id);
-      Track retrivedTrackById = null;
-      try {
-          retrivedTrackById = trackService.getTrackById(id);
-      } catch (TrackNotFoundException e) {
-          e.printStackTrace();
-      }
-      return new ResponseEntity<Track>(retrivedTrackById, HttpStatus.OK);
+  public ResponseEntity<?> getTrackById(@PathVariable int id){
+      System.out.println(id);
+      Track retrievedTrack=trackService.getTrackById(id);
+      return new ResponseEntity<>(retrievedTrack,HttpStatus.OK);
   }
   @GetMapping("track")
   public ResponseEntity<?> getAllTracks() {
