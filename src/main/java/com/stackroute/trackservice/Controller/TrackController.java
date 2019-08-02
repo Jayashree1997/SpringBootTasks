@@ -36,15 +36,11 @@ public class TrackController {
     Track retrivedTrackById = trackService.getTrackById(id);
     return new ResponseEntity<Track>(retrivedTrackById, HttpStatus.OK);
   }
-
-
-
   @GetMapping("track")
   public ResponseEntity<?> getAllTracks() {
     List<Track> retrieveTrack = trackService.getAllTracks();
     return new ResponseEntity<>(retrieveTrack, HttpStatus.OK);
   }
-
   @DeleteMapping("track/{id}")
   public ResponseEntity<?> deleteTrackById(@PathVariable int id){
     Track deleteTrack = trackService.deleteTrackById(id);
@@ -55,5 +51,11 @@ public class TrackController {
     Track updateTrack = trackService.updateTrackById(id,track);
     return new ResponseEntity<>(updateTrack,HttpStatus.OK);
   }
+  @GetMapping("tracks/{name}")
+  public ResponseEntity<?> getTrackByName(@PathVariable String name){
+      List<Track> track = trackService.getTrackByName(name);
+      return new ResponseEntity<>(track, HttpStatus.OK);
+    }
+  }
 
-}
+
