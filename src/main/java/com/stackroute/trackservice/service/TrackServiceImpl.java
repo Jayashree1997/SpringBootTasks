@@ -1,6 +1,7 @@
 package com.stackroute.trackservice.service;
 
 import com.stackroute.trackservice.domain.Track;
+import com.stackroute.trackservice.exceptions.TrackAlreadyExistsException;
 import com.stackroute.trackservice.repository.TrackRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,10 @@ public class TrackServiceImpl implements TrackService{
   }
 
   @Override
-  public Track saveTrack(Track track) {
+  public Track saveTrack(Track track) throws TrackAlreadyExistsException {
+    if(trackRepository.existsById(track.getId())){
+      throw new TrackAlreadyExistsException("User already exists");
+    }
     Track savedTrack=trackRepository.save(track);
     return savedTrack;
   }

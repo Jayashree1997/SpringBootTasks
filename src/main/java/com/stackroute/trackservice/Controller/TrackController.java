@@ -1,6 +1,8 @@
 package com.stackroute.trackservice.Controller;
 
 import com.stackroute.trackservice.domain.Track;
+import com.stackroute.trackservice.exceptions.TrackAlreadyExistsException;
+import com.stackroute.trackservice.exceptions.TrackNotFoundException;
 import com.stackroute.trackservice.service.TrackService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +27,27 @@ public class TrackController {
   }
 
   @PostMapping("track")
-  public ResponseEntity<?> saveTrack(@RequestBody Track track) {
-    Track savedTrack = trackService.saveTrack(track);
-    return new ResponseEntity<>(savedTrack, HttpStatus.OK);
+  public ResponseEntity<?> saveTrack(@RequestBody Track track){
+      ResponseEntity responseEntity;
+      try {
+          trackService.saveTrack(track);
+          responseEntity = new ResponseEntity<String>("Successfully created", HttpStatus.CREATED);
+      }catch(TrackAlreadyExistsException ex){
+          responseEntity = new ResponseEntity<String>(ex.getMessage(),HttpStatus.CONFLICT);
+      }
+    return responseEntity;
   }
 
   @GetMapping("track/{id}")
   public ResponseEntity<?> getTrackById(@PathVariable int id) {
     System.out.println(id);
-    Track retrivedTrackById = trackService.getTrackById(id);
-    return new ResponseEntity<Track>(retrivedTrackById, HttpStatus.OK);
+      Track retrivedTrackById = null;
+      try {
+          retrivedTrackById = trackService.getTrackById(id);
+      } catch (TrackNotFoundException e) {
+          e.printStackTrace();
+      }
+      return new ResponseEntity<Track>(retrivedTrackById, HttpStatus.OK);
   }
   @GetMapping("track")
   public ResponseEntity<?> getAllTracks() {
