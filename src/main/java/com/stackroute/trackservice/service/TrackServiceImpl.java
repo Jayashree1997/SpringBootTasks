@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Profile("support")
+@Profile("dev")
 public class TrackServiceImpl implements TrackService{
   private TrackRepository trackRepository;
   public TrackServiceImpl(TrackRepository trackRepository){
@@ -52,8 +52,8 @@ public class TrackServiceImpl implements TrackService{
     return updateTrack;
   }
   @Override
-  public List<Track> getTrackByName(String name) {
-    List<Track> trackList = trackRepository.getTrackByName(name);
+  public List<Track> findByName(String name) {
+    List<Track> trackList = trackRepository.findByName(name);
     return trackList;
   }
 
