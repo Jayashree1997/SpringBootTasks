@@ -7,6 +7,4 @@ public class TrackAlreadyExistsException extends Exception{
         super(message);
         this.message=message;
     }
-
-
 }
