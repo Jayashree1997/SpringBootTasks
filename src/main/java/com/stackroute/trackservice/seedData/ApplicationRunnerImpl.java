@@ -1,5 +1,4 @@
 package com.stackroute.trackservice.seedData;
-
 import com.stackroute.trackservice.domain.Track;
 import com.stackroute.trackservice.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,6 @@ public class ApplicationRunnerImpl  implements ApplicationListener {
 //        trackRepository.save(track2);
 //        Track track3=new Track(80,"mnb","vbc");
 //        trackRepository.save(track3);
-
     }
 }
 
