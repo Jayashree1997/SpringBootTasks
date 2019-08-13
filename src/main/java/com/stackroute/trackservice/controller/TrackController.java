@@ -24,34 +24,34 @@ public class TrackController {
   }
 
   @PostMapping("track")
-      public ResponseEntity<?> saveUser(@RequestBody Track track) throws TrackAlreadyExistsException {
+      public ResponseEntity<?> saveUser(@RequestBody Track track) throws TrackAlreadyExistsException, Exception {
 
           return new ResponseEntity<>(trackService.saveTrack(track), HttpStatus.OK);
       }
 
   @GetMapping("track/{id}")
-  public ResponseEntity<?> getTrackById(@PathVariable int id){
+  public ResponseEntity<?> getTrackById(@PathVariable int id) throws Exception{
       System.out.println(id);
       Track retrievedTrack=trackService.getTrackById(id);
       return new ResponseEntity<>(retrievedTrack,HttpStatus.OK);
   }
   @GetMapping("track")
-  public ResponseEntity<?> getAllTracks() {
+  public ResponseEntity<?> getAllTracks() throws Exception {
     List<Track> retrieveTrack = trackService.getAllTracks();
     return new ResponseEntity<>(retrieveTrack, HttpStatus.OK);
   }
   @DeleteMapping("track/{id}")
-  public ResponseEntity<?> deleteTrackById(@PathVariable int id){
+  public ResponseEntity<?> deleteTrackById(@PathVariable int id) throws Exception{
     Track deleteTrack = trackService.deleteTrackById(id);
     return new ResponseEntity<>(deleteTrack,HttpStatus.OK);
   }
   @PutMapping("track/{id}")
-  public ResponseEntity<?> updateTrackById(@PathVariable int id,@RequestBody Track track){
+  public ResponseEntity<?> updateTrackById(@PathVariable int id,@RequestBody Track track) throws Exception{
     Track updateTrack = trackService.updateTrackById(id,track);
     return new ResponseEntity<>(updateTrack,HttpStatus.OK);
   }
   @GetMapping("tracks/{name}")
-  public ResponseEntity<?> findByName(@PathVariable String name){
+  public ResponseEntity<?> findByName(@PathVariable String name) throws Exception{
       List<Track> track = trackService.findByName(name);
       return new ResponseEntity<>(track, HttpStatus.OK);
     }
